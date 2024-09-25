@@ -1,0 +1,227 @@
+Superbadge
+Prompt Builder Templates Superbadge Unit
+Create Prompt Builder templates to supercharge AI-powered insights and engagement.
+
+~1 hr•0%
+Progress: 0%
+Prerequisites
+
+complete
+Superbadge Program Security: Quick Look
+
+complete
+Prompt Builder Basics
+
+complete
+Quick Start: Create a Sales Email Prompt Template
+
+complete
+Quick Start: Create a Prompt Builder Flex Template
+
+unlocked
+Prompt Builder Templates Superbadge Unit
+Prompt Builder Templates Superbadge Unit
+What You'll Be Doing to Earn This Superbadge
+1. Use the Prompt Template Workspace to configure Flex, Field Generation, and Sales Email prompt template types. 
+
+2. Adjust an existing flow to incorporate a prompt template.
+
+3. Send an email using an email prompt template.
+
+Concepts Tested in This Superbadge
+Creating Prompt Templates
+Prompt Template Instructions
+﻿Calling a Prompt Template in a Simple Flow
+Sign Up for a Developer Edition Org with Special Configuration
+To complete this superbadge unit, you need a special Developer Edition org that contains specific configuration and sample data. Note that this Developer Edition org is designed to work with the challenges in this superbadge unit.
+
+Sign up for a free Developer Edition org with special configuration.
+
+Fill out the form. For Email address, enter an active email address.
+
+After you fill out the form, click Sign me up.
+When you receive the activation email (this might take a few minutes), open it and click Verify Account.
+
+Complete your registration by setting your password and challenge question. Tip: Save your username, password, and login URL in a secure place—such as a password manager—for easy access later.
+
+You are logged in to your superbadge Developer Edition org.
+
+Additional Configuration
+You must enable Einstein Generative AI to work with Prompt Builder templates.
+For part of this challenge, your org must be configured with English as the user language.
+We recommend that you deselect “Enable secure and persistent browser caching to improve performance” in Session Settings.
+Now, connect your new Developer Edition org to Trailhead.
+
+Make sure you’re logged in to your Trailhead account.
+
+In the Challenge section at the bottom of this page, select Connect Org from the picklist.
+
+On the login screen, enter the username and password for the Developer Edition org you just set up.
+
+On the “Allow Access?” page, click Allow.
+
+On the “Want to connect this org for hands-on challenges?” page, click Yes! Save it. You are redirected back to the Challenge page and ready to use your new Developer Edition org to earn this superbadge.
+
+Now that you have a Salesforce org with special configuration for this superbadge unit, you’re good to go.
+
+Prework and Notes
+
+Note
+Note
+Before you begin the challenges, review Prompt Builder Templates Superbadge Unit: Trailhead Challenge Help. The Help article contains key information required to complete this technical skills assessment.
+
+Make sure you use the right special org. The special org for this unit does not have Data Cloud provisioned. Not all Prompt Builder features are available in this special org. You may want to navigate to the custom Tranquil Trails app in the org for navigation convenience, but it isn’t necessary.
+
+The Einstein 1 Platform is constantly evolving. The challenges in this superbadge unit make use of translation abilities that currently are not available in all large language models (LLMs) and do not support all languages. If the language is not set to English in the My Personal Information settings, the challenges will not pass. As the Einstein 1 Platform innovation continues, this requirement may no longer be necessary in the future.
+
+Review Superbadge Challenge Help for information about the Salesforce Certification Program and Superbadge Code of Conduct.
+
+Use Case
+Tranquil Trails Wellness Co. (Tranquil Trails) is a leading wellness provider with a global presence. Established to promote holistic health and wellness, the company helps clients meet their fitness goals by connecting them with personal wellness coaches for guidance and encouragement. Tranquil Trails wants to incorporate new artificial intelligence (AI)-driven features to help the coaches better engage with clients, creating more personalized interactions at scale.
+
+As a Salesforce Administrator for Tranquil Trails, your task is to complete the necessary steps to achieve the company’s goals with the Einstein 1 Platform. The company is focusing on improving the client experience by collecting clients’ feedback about their goals and recent activities. Tranquil Trails will use this feedback to provide personalized suggestions to clients and ensure that all coaches are aware of their clients’ evolving needs and objectives.
+
+Business Requirements
+Translate Text with a Prompt Template and Record-Triggered Flow
+Tranquil Trails offers a “goals and interests” survey in a client portal. Clients complete their first survey before they begin working with a coach and may have several form submissions over time. Each survey submission creates a new record in the Tranquil Trails Salesforce instance in a custom object called Fitness. A field called Survey Input captures comments in a variety of languages.
+
+While clients are always assigned a coach who speaks their language, some managers only speak English. Managers need to be able to read the comments in English, even if the client originally entered the content in a different language. Your job is to configure a feature that automatically translates the survey comments into English and updates a field called Translated Survey Input with the AI-generated translation.
+
+Create a new prompt template named Translate Survey Input with description text reflecting the purpose of the template. For now, the prompt template will only reference the Fitness object, but the team wants the template to be able to incorporate resources from the Account and Contact objects in the future. Make sure the template can include references to the Account and Contact objects and the Fitness object. The Template Inputs should include the three source objects associated with the following fields and API Names.
+
+Account with API name Account
+Contact with API name Contact
+Fitness with API name Fitness
+Refer to the prompt text. Replace the text found in brackets with the appropriate resource. Make sure Einstein Generative AI is enabled in your org and that the template uses the Standard Model Type with the OpenAI GPT 4 Turbo model.
+
+You are a wellness specialist from a company called Tranquil Trails. Review the content [Survey Input field] . If the content is in a language other than English, translate the text into English, following the instructions below.
+Instructions: """
+Follow these instructions precisely. Don’t add any information not provided.
+- If the content [Survey Input field] is not in English, translate it into English without copying the text in the original language.
+- Do not explain what you are doing in this situation—simply translate the text.
+- Strictly limit the characters returned to fewer than 255. 
+Now, evaluate the content.
+"""
+Preview the translation capability in the Prompt Template Workspace using Kyrstin Strong's account and contact records and Fitness Interest-0906. Make sure the prompt template is ready for use in the system: your next step is to automate the translation service. Any new records that are created in the system should automatically form with survey input translated per the prompt template. An existing flow called Translate Fitness Survey Input is partially built. The flow already has a Start element and two Get Records elements.
+
+Update the flow to ensure that the language translation feature runs whenever a new survey record is created. Add a new Action element immediately after the existing Get Records elements called Translate Survey Input. This action calls the Translate Survey Input prompt template you created. Use any description you’d like; we won't check for the element description. Do not manually assign variables; rather allow the system to automatically store the response from the action. Configure the input values for the action using the following values.
+
+Account: Account from Get Account or {!Get_Account}
+Contact: Contact from Get Contact or {!Get_Contact}
+Fitness: Triggering Fitness__c or {!$Record}
+Add an Update Records element called Update Translated Survey Input that will update the record that started the flow, using any description you’d like. Use the Fitness record that triggered the flow. Set the field value for Translated_Survey_Input__c with the value output from the prior action {!Translate_Survey_Input.promptResponse}.
+
+Make sure the flow is ready for use after adding the action and element. Test the flow using a sample Fitness record you manually create for Latisha Bryce from her contact record. For testing purposes, include the following information and any other record details you’d like to include. (We won’t check for other details.) In the Survey Input field, enter the Italian phrase Ho sempre desiderato correre una maratona. And for the Interest Type, enter Running.
+
+Your automations do their work when you save the record! Review the translated text to confirm that the model is translating Latisha’s interest in running a marathon into English. It's amazing to see the translation run without having to configure any specific translation rules, and program managers and coaches are big fans of the new functionality.
+
+Build an AI-Generated Summary of Related Records
+The Tranquil Trails marketing team wants to use AI to create personalized profile insights for their clients based on clients' surveys. Over time clients may have several different interests or concerns. Each survey submission creates a new Fitness record in Salesforce related to a client’s Contact record. Each client can have several related Fitness records. Rather than reviewing each related record, wellness coaches want to see a summary of all Fitness submissions a client has provided right on the Contact record page.
+
+Your strategy is to create a custom rich text field on the Contact record that will hold an AI-generated summary of all related Fitness records. Create a custom field on Contact called Interest Summary (with the API name Interest_Summary__c), using any description and help text you’d like.
+
+Create a new prompt template called Summarize Client Goals that will generate text for the new summary field, with description text reflecting the purpose of the template.
+
+Tip: If you can’t find the field you just created, make sure you’ve read the Help article and followed the Additional Configuration step about Session Settings.
+
+Enter the text provided by the marketing team in the Prompt Template Workspace, making sure to replace the text in brackets with the appropriate Resources. You can use any LLM model you’d like; we recommend using OpenAI GPT 4 Turbo, but we won’t check for that.
+
+ 
+You are a wellness coach from a company called Tranquil Trails who wants to see a quick summary of a client's fitness interests. 
+Review the content in the list of fitness records related to a contact record, [Related list of all Fitness records] 
+In this list all records relate to the individual contact.
+Fitness records: [Related list of all Fitness records]
+Contact name: [Input the contact's first name]
+
+Instructions: """
+Follow these instructions precisely. Don’t add any information not provided.
+The "contact" must be referred to as a "client" in the summary.
+Use clear, concise, and straightforward language in the active voice and a friendly, informal, informative tone.
+The summary must include the following:
+Use the client's first name in the first sentence.
+Interpret any reported stress level based on a scale from 1-10, with values of 7-10 being ideal.
+If any values are missing, do not include any reference to missing information.
+Do not address any content or generate answers that don’t have complete data.
+Do not use filler words or phrases or redundant language.
+Use an introductory summary sentence and closing sentence in addition to several bullet points.
+When you format the list, use a variety of emoji as bullet points to add interest.
+Limit the summary to seven sentences.
+"""
+After you preview the response to confirm the model runs as expected, make sure it is ready for use in the system. Update the Contact record page so that users can run the prompt from the new custom field. Finally, test the feature using the contact record for Robinette Bullman by generating an interest summary with the field you configured as the summary destination.
+
+Create a Prompt Template for an Engagement Email
+The team is thrilled that these new templates and automations are in place to summarize and localize client information! Now, Tranquil Trails wants to help wellness coaches easily create engaging, personalized emails that encourage clients to keep working toward their wellness goals. Rather than having coaches sort through interest and program records manually, the team wants the system to be able to compare client information with currently available programs and suggest activities and offerings that align with client interests.
+
+Create a prompt template named Program Recommendation Email with description text reflecting the purpose of the template. When you define the template, specify the Contact object for the Recipient; do not configure a Related Object. The template will reference information from the client’s interests and preferences to generate a personalized email.
+The template will also reference an Apex class already available in the Tranquil Trails system called Prompt_Program_Recommendation_Invocable. This Apex class uses just a few lines of code to generate personalized program suggestions dynamically, informed by a client’s specific fitness interests.
+
+Use the following instructions in the Prompt Template Workspace.
+
+ 
+You are a wellness specialist from a company called Tranquil Trails and the sender of this email, [sender's full name]. You are writing an email to an individual client, [recipient's full name].
+Instructions: """
+Follow these instructions precisely. Don’t add any information not provided.
+Do not use phrases like "I hope this email finds you well" or any other variation that expresses well-wishes for the recipient's well-being. Use clear, concise, and straightforward language in the active voice, strictly avoiding filler words and phrases or redundant language.
+The email should include the following:
+Generate a subject line that can increase open rate using words and content related to the email body content.
+The salutation must only contain the recipient's first name.
+Refer to the sender in the singular voice, using references such as "I" and not "we" in the email.
+Convey that you are checking in to follow up and encourage the client's progress.
+The message should evoke enthusiasm with intensifiers, but limit the use of exclamation points.
+Maintain a casual tone by using contractions and referring to the recipient in the first person, but do not use discourse markers.
+Below are two sets of reference information.
+The first is a list of the recipient's interests tagged as :Goals.
+The second is a list of the current active programs in a JSON object tagged as :Programs.
+Craft a sales email identifying a maximum of two programs that would be of key interest to the recipient based on their :Goals and the available :Programs.
+### Goals
+[Insert the related list of all Fitness records for this contact.]
+### Programs
+[Call the Apex class Prompt_Program_Recommendation_Invocable.]
+Follow these instructions strictly to generate the message to be sent to the client.
+"""
+Preview the response to confirm that the model runs as expected and confirm that the prompt template is ready for use in the system. Make sure that wellness coach Victoria Bryant can select the Draft with Einstein feature in the native email activity. Test the feature as a user would by sending an email to Robinette Bullman using the Program Recommendation Email template. You do not need to log in as Victoria to test the feature.
+
+Tip: Navigating to the Tranquil Trails app may be the most convenient way to send an email from the contact record. You may want to adjust the contact email for Robinette to your own for testing purposes.
+
+Tip: If you're not seeing the custom “pre-made instructions” referencing the template you just created, make sure the prompt template is ready for use in the system, review the note about Session Settings, then try refreshing the page.
+
+Remind anyone who works with the generated output that all content must be reviewed before it goes to clients. While it is possible for LLMs to give incorrect or unsuitable responses, the Einstein Trust Layer works to prevent the use of biased, noninclusive, or discriminatory language. However, checks by coaches sending the emails are still important to guarantee that everything is working as planned.
+
+After your successful test, it's time to share the results with the marketing and sales teams to demonstrate the features Prompt Builder offers. They can already tell that they will save countless hours previously spent manually sifting through client surveys and program offerings and drafting individual emails. Most exciting: The new features don’t just summarize or combine information; rather, client information is synthesized into highly customized and tailored suggestions. The teams can’t wait for you to roll out more AI-powered features.
+
+Ready to Tackle This Superbadge?
+You’ll be doing the work for this superbadge in your own hands-on org. Each superbadge has unique org requirements, configurations, licenses, and restrictions. Follow the steps in the Prework and Notes section carefully to set up a new org for this superbadge; this might involve installing a package into a new Trailhead Playground or signing up for a special Developer Edition org.
+
+To create a new Trailhead Playground now, click Launch. To create a special Developer Edition org, follow the steps in Prework and Notes.
+
+
+Wise Otter Playground
+Created on 9/24/2024
+Complete each challenge to earn your superbadge
+1
+Translate Text with a Prompt Template and Record-Triggered Flow
+Create a prompt template, modifying the provided text with the appropriate Resource references. Use the template in a record-triggered flow provided in the system. Test the translation automations with a record.
+
+
+
+Make sure Einstein Generative AI is enabled in your org, or none of the challenges will pass.
+
+
+
+For more information, review the Help article for this superbadge unit.
+
+2
+Build an AI-Generated Summary of Related Records
+Create a prompt template to summarize any number of related records and populate the summary in a custom field.
+
+
+
+For more information, review the Help article for this superbadge unit.
+
+3
+Create a Prompt Template for an Engagement Email
+Create a prompt template that allows team members to easily send insightful emails to clients.
+
+
+
+For more information, review the Help article for this superbadge unit.
