@@ -1,0 +1,109 @@
+Challenge 1: Translate Text with a Prompt Template and Record-Triggered Flow
+Steps to Create the Prompt Template:
+Navigate to Prompt Template Workspace:
+
+Go to App Launcher and search for Prompt Template Workspace.
+Click on New to create a new template.
+Create the 'Translate Survey Input' Template:
+
+Template Name: Translate Survey Input
+Description: Translate client survey input into English for managerial review.
+Template Text:
+plaintext
+Copy code
+You are a wellness specialist from a company called Tranquil Trails. Review the content [Survey Input field]. If the content is in a language other than English, translate the text into English, following the instructions below.
+
+Instructions: 
+Follow these instructions precisely. Don’t add any information not provided.
+- If the content [Survey Input field] is not in English, translate it into English without copying the text in the original language.
+- Do not explain what you are doing in this situation—simply translate the text.
+- Strictly limit the characters returned to fewer than 255. 
+Now, evaluate the content.
+Resource References: Link the Fitness, Account, and Contact objects.
+Save the template.
+Steps to Update the Flow:
+Open the Translate Fitness Survey Input Flow:
+
+Go to Setup → Flow Builder.
+Find and open the Translate Fitness Survey Input flow.
+Add Action to Call Translate Survey Input Template:
+
+After the existing Get Records element, add an Action element.
+Choose Use Prompt Template and select the Translate Survey Input template you just created.
+Map the input field [Survey Input field] to the correct variable from the Fitness record.
+Add an Update Records Element:
+
+After the prompt action, add an Update Records element.
+Set the output to update the Translated_Survey_Input__c field with the translation from the action.
+Activate and Test the Flow:
+
+Create a sample Fitness record for Latisha Bryce with the input: Ho sempre desiderato correre una maratona.
+Save and check that the translation is populated correctly in the Translated_Survey_Input__c field.
+Challenge 2: Build an AI-Generated Summary of Related Records
+Steps to Create the Summary Template:
+Create 'Summarize Client Goals' Template:
+Template Name: Summarize Client Goals
+Description: Generate a personalized summary of client fitness interests.
+Template Text:
+plaintext
+Copy code
+You are a wellness coach from a company called Tranquil Trails who wants to see a quick summary of a client's fitness interests.
+Review the content in the list of fitness records related to a contact record, [Related list of all Fitness records]
+In this list all records relate to the individual contact.
+
+Fitness records: [Related list of all Fitness records]
+Contact name: [Input the contact's first name]
+
+Instructions:
+Follow these instructions precisely. Don’t add any information not provided.
+The "contact" must be referred to as a "client" in the summary.
+Use clear, concise, and straightforward language in the active voice and a friendly, informal, informative tone.
+The summary must include the following:
+- Use the client's first name in the first sentence.
+- Interpret any reported stress level based on a scale from 1-10, with values of 7-10 being ideal.
+- If any values are missing, do not include any reference to missing information.
+- Do not address any content or generate answers that don’t have complete data.
+- Do not use filler words or phrases or redundant language.
+- Use an introductory summary sentence and closing sentence in addition to several bullet points.
+- When you format the list, use a variety of emoji as bullet points to add interest.
+- Limit the summary to seven sentences.
+Save the template.
+Field Configuration:
+Create Custom Field:
+
+Go to Object Manager → Contact → Fields & Relationships.
+Create a custom field called Interest Summary (Interest_Summary__c).
+Preview and Validate the Response:
+
+Use Robinette Bullman's contact record to test the template.
+Confirm that the generated summary includes the required bullet points, emojis, and follows the instructions.
+Challenge 3: Create a Prompt Template for an Engagement Email
+Steps to Create the Email Template:
+Create 'Program Recommendation Email' Template:
+Template Name: Program Recommendation Email
+Description: Generate personalized engagement emails for clients.
+Template Text:
+plaintext
+Copy code
+You are a wellness specialist from a company called Tranquil Trails and the sender of this email, [sender's full name]. You are writing an email to an individual client, [recipient's full name].
+
+Instructions:
+Follow these instructions precisely. Don’t add any information not provided.
+- Do not use phrases like "I hope this email finds you well" or any other variation that expresses well-wishes for the recipient's well-being. 
+- Use clear, concise, and straightforward language in the active voice, strictly avoiding filler words and phrases or redundant language.
+- The email should include the following:
+  - Generate a subject line that can increase open rate using words and content related to the email body content.
+  - The salutation must only contain the recipient's first name.
+  - Refer to the sender in the singular voice, using references such as "I" and not "we" in the email.
+  - Convey that you are checking in to follow up and encourage the client's progress.
+  - The message should evoke enthusiasm with intensifiers, but limit the use of exclamation points.
+- Craft a sales email identifying a maximum of two programs that would be of key interest to the recipient based on their :Goals and the available :Programs.
+
+### Goals
+[Insert the related list of all Fitness records for this contact.]
+### Programs
+[Call the Apex class Prompt_Program_Recommendation_Invocable.]
+Save the template.
+Testing:
+Test the email by sending a sample to Robinette Bullman.
+Make sure that the email content aligns with the template and includes the correct goals and program recommendations.
