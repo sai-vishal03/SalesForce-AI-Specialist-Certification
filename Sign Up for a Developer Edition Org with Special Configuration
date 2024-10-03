@@ -1,0 +1,34 @@
+Sign Up for a Developer Edition Org with Special Configuration
+To complete this superbadge unit, you need a special Developer Edition org that contains specific configuration and sample data. 
+Note that this Developer Edition org is designed to work with the challenges in this superbadge unit.
+
+Sign up for a free Developer Edition org with special configuration.
+
+Fill out the form. For Email address, enter an active email address.
+
+After you fill out the form, click Sign me up.
+When you receive the activation email (this might take a few minutes), open it and click Verify Account.
+
+Complete your registration by setting your password and challenge question. Tip: Save your username, password, and login URL 
+in a secure place—such as a password manager—for easy access later.
+
+You are logged in to your superbadge Developer Edition org.
+
+Additional Configuration
+You must enable Einstein Generative AI to work with Prompt Builder templates.
+For part of this challenge, your org must be configured with English as the user language.
+We recommend that you deselect “Enable secure and persistent browser caching to improve performance” in Session Settings.
+Now, connect your new Developer Edition org to Trailhead.
+
+Make sure you’re logged in to your Trailhead account.
+
+In the Challenge section at the bottom of this page, select Connect Org from the picklist.
+
+On the login screen, enter the username and password for the Developer Edition org you just set up.
+
+On the “Allow Access?” page, click Allow.
+
+On the “Want to connect this org for hands-on challenges?” page, click Yes! Save it. You are redirected back to the Challenge 
+page and ready to use your new Developer Edition org to earn this superbadge.
+
+Now that you have a Salesforce org with special configuration for this superbadge unit, you’re good to go.
