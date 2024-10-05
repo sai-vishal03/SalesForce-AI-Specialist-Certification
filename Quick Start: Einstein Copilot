@@ -1,0 +1,175 @@
+Connect Your Flows to Einstein Copilot
+Learning Objectives
+In this project, you’ll:
+
+Test Copilot actions with sample data in Agent Builder.
+Create a custom Copilot action to use Flow for automation.
+Bring Einstein Copilot into the Conversation
+Generative AI has made it possible to interact with computers in the same way we interact 
+with our friends and coworkers: with conversational language. And with our Agentforce platform, 
+you can add the amazing power of generative AI into Salesforce so your customers and employees 
+can interact conversationally, too.
+
+Einstein Copilot is a type of agent that helps your Salesforce users with common business tasks,
+and it’s seamlessly built into the Salesforce interface. Using everyday language, users can ask 
+Einstein Copilot to get the latest hot leads, summarize a case, or draft an email to a potential customer.
+
+As you learn in Einstein Copilot Basics, Copilot actions and custom actions are the building-blocks for 
+these natural interactions. For example, one action, called Query Records, finds and retrieves Salesforce
+records based on the user’s request and specific conditions. Einstein Copilot comes with several actions 
+out of the box, and together they allow for some really sophisticated interactions. Custom actions allow 
+you to create actions that are unique to your organization, and they can even harness Flow and Apex for truly impressive interactions.
+
+In this project you explore the standard Copilot actions, and learn how to test them in the Agent Builder. 
+Then you create a custom action that uses an existing flow that we’ve already set up to initiate a return for a recent order.
+
+Sign Up for a Trial Org with Einstein Generative AI
+To complete this project, you need a special, 14-day custom playground that contains Einstein AI and our sample data.
+
+If you haven't already, click the I can receive a password email checkbox in the beginning of the unit.
+Click Create Playground.
+Follow the prompts.
+Note
+This custom playground is designed to work with the challenges in this badge and may not work for other
+badges. Always check that you’re using the Trailhead Playground or special org that we recommend.
+
+If you’re working on related Einstein AI content in Trailhead, you’ll also use this org for these projects:
+
+Quick Start: Prompt Builder
+Quick Start: Create a Prompt Builder Flex Template
+Quick Start: Create a Sales Email Prompt Template
+
+
+Get to Know Copilot Actions
+Einstein Copilot is already quite capable out of the box thanks to the premade actions that you just
+learned about. Let’s take a minute to review those actions in Agent Builder, and discover what Einstein
+Copilot can do without any customization on your part.
+
+If you don’t already have your Einstein AI-enabled trial org open, scroll down to the Challenge section
+and click Launch to open it.
+From the App Launcher, search for orders then click Orders.
+App Launcher with Orders highlighted.
+
+Choose the All Orders list view.
+Two orders will appear, both for Edge Communications. They play a role later in our story, so it’s good
+to verify they exist. Now we can set up Copilot.
+Click Setup icon and click Setup. The Setup page opens in a new tab.
+In the Quick Find box, enter einstein setup, then click Einstein Setup.
+Turn on Einstein by clicking the toggle. It may already be on if you’ve completed the Quick Start: Prompt Builder project.
+Einstein setup page.
+
+Refresh your browser window. This reveals new admin settings now that Einstein is enabled.
+In the Quick Find box, enter agent, then click Agents.
+Currently, you can customize and launch one agent for your employees, and that copilot is available in
+the flow of work in Salesforce.
+Turn on Einstein Copilot for Salesforce by clicking the toggle.
+Agents setup page.
+
+Click Einstein Copilot, found at the bottom of the page.
+Click Open in Builder.
+Open in Builder button.
+
+If the right-hand pane has a welcome message, click Got It.
+Welcome to the Agent Builder. Here you can test your agent and witness how it plans its response using real data.
+
+Conversation Preview pane in Agent Builder.
+
+It’s okay if you see an error message in the Conversation Preview, the following directions will work. Let’s 
+start a conversation by asking your copilot to search and retrieve a record.
+
+In the Conversation Preview window, type Tell me about the account Edge Communications. Then press return.
+Einstein Copilot begins processing your request. It’s figuring out what you intend, and how to respond. 
+In a moment you’ll get an answer that’s based on the available actions. Einstein Copilot uses large language models(LLMs)
+so you might find some questions return results that are a bit different that the screen captures in this project.
+If you get a message that Copilot is having trouble, then click the Refresh icon Reset conversation button in the Conversation Preview window and try again.
+If Einstein Copilot asks you to pick a record, select Edge Communications and click Submit.
+A lot happens when you ask this question. And in Agent Builder you see the process your copilot follows in order to respond.
+
+For this request, your agent recognized that two actions were required. First, it needed to identify the correct account. 
+Second, it needed to summarize the details. The ability to chain together the right actions is one of the ways that makes 
+your copilot especially good at maintaining its side of the conversation. Another important part of holding a conversation 
+is remembering details that were brought up earlier. Copilot can do that too! For example, you can ask it to provide more 
+details about something it previously mentioned.
+
+In the Conversation Preview window type Do they have any active orders? Then press return.
+
+This time Einstein Copilot uses the context of the conversation to understand that you are asking about orders specific to 
+Edge Communications. After a moment, details of the two existing orders will appear.
+
+Create a Custom Action
+The standard copilot actions can do a lot, but in this scenario you have a special process for handling order returns. In 
+fact, you already have a flow that automates the process. (Team Trailhead made the flow for you in your Einstein AI-enabled org.)
+
+You can use that flow to extend the capabilities of your agent. You do that by creating a custom action that references the flow.
+
+Click the left arrow Back button to setup to exit Agent Builder.
+In the Quick Find box, enter agent, then click Agent Actions.
+Click New Agent Action.
+For Reference Action Type, choose Flow.
+For Reference Action, choose Initiate Return.
+This is the existing flow you’ve been using to initiate order returns.
+Click Next.
+For Copilot Action Instructions, paste the following:
+Use Initiate Return for requests to return or refund orders or products in an order.
+For Instructions (under Inputs), paste the following:
+Populate this input variable with an Order recordId.
+Check Require Input.
+Check Collect data from user.
+For Instructions (under Outputs), paste the following:
+This output indicates the status of the return request, whether it has been initiated, processed, or completed.
+Check Show in conversation.
+Click Finish.
+Excellent, your custom action has everything it needs. For this example, we supplied the descriptions because
+they are critical to how the action will function. They are used as part of the prompt that Einstein AI sends to 
+the LLM. You can learn all about what makes a great prompt in the Prompt Fundamentals badge. Then use the prompt
+engineering skills you learn to make the descriptions for your custom actions clear and complete.
+
+Now you have to go back to the Agent Builder to add the new action to your agent.
+
+Click Agents.
+Click Einstein Copilot.
+Click Open in Builder.
+Ensure your copilot isn’t active, it should show an Activate button. If it shows a Deactivate button, click Deactivate.
+From Topics, click MigrationDefaultTopic.
+Topics section of Agent Builder with an arrow pointing to MigrationDefaultTopic.
+
+Click This Topic’s Actions.
+Topic Details with an arrow pointing to This Topic’s Actions.
+
+Click the + icon.
+Agent Builder with actions tab displayed.
+
+Check the Initiate Return box and click Finish.
+Click Activate.
+Great, your agent can now use the Initiate Return action in a conversation. Let’s try it out as if we were an actual user.
+
+Close the Setup tab to return to the Sales app.
+Click the Home tab.
+Let’s start from Home as if we were just starting our day.
+Refresh your browser window, which should make the Einstein button appear.
+Click the Einstein button to open the conversation window.
+Toolbar with Einstein button.
+
+To start your test, give your copilot some context to work with by finding a specific order. In the conversation window, 
+type What is the order with the most recent order start date? Then press return.
+After a moment it should display order 101, with a clickable link.
+Click order number 00000101.
+In the conversation window, type Tell me about order 101. Then press return.
+The summary will describe three products, the same order products in the related list. Edge Communications accidentally 
+ordered these items, so let’s start a return.
+In the conversation window, type Start a return for order 101. Then press return.
+Because your custom action has a clear and comprehensive description, your agent can identify it as the action you intend to 
+take. So it will kick off the related flow, and give you a status update.
+Click the Details tab.
+If you scroll to the bottom of the page, you’ll find that the Return Status field has been updated to Initiated thanks to the Initiate Return flow.
+
+With just a few clicks, you can incorporate existing automation into your agent’s catalog of actions. Now, automations and processes 
+that are unique to your organization can be part of the conversation when interacting with Einstein AI.
+
+
+
+
+
+
+
+
