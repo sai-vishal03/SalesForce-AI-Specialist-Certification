@@ -1,0 +1,42 @@
+Get Started with Data Cloud and AI
+Learning Objectives
+In this project, you’ll:
+
+Sign up for a Data Cloud and Einstein AI–enabled playground.
+Present data stream data to users with a Data Cloud Related List.
+Extend Copilot with a flow-based action.
+Create a prompt template to use in sales emails.
+Welcome to Coral Cloud Resorts
+Everyone needs a vacation from time to time. So for your next trip, why not consider Coral Cloud Resorts? Coral Cloud Resorts 
+are known for offering a wide variety of amazing destination activities and doing everything to ensure guests have a fantastic 
+stay. This commitment to excellent service has brought Data Cloud and Einstein 1 to Coral Cloud’s attention. Becca Cloudier, 
+the Salesforce admin, just earned the Salesforce Data Cloud: Quick Look badge, where she learned how Data Cloud can unify data 
+from across many sources. Coincidentally, she’s also recently earned the Einstein Copilot Basics and Prompt Builder Basics badges,
+discovering just how powerful generative AI can be. Now it’s obvious to Becca: Data Cloud and Einstein 1 go together like sunshine 
+and beaches!
+
+Becca starts making plans for her first project that combines Data Cloud with generative AI: Streamline the check-in process while 
+still keeping it a personalized experience. Resort staff can give more personal attention to their customers, who in turn spend 
+less time standing at a check-in desk.
+
+Einstein conversation pane with a request and response.
+
+Once the project is complete, you can witness how a few pieces of data from an external source can weave their way through 
+Salesforce and generative AI functionality, ending in an email that Einstein drafts in a matter of seconds. So pack your bags,
+because we’re about to take a trip to Coral Cloud Resorts for exciting adventures in Data Cloud and Einstein generative AI!
+
+Sign Up for a Custom Playground with Data Cloud and Einstein AI
+To complete this project, you need a custom playground that contains Data Cloud, Einstein AI, and our sample data. If you haven’t
+already clicked the Create Playground button at the top of this page, do that now, and follow the steps to create a custom playground
+and connect it to Trailhead.
+
+Note
+This Custom Playground is designed to work with the challenges in this badge, and may not work for other badges. Always check that
+you’re using the Trailhead Playground or special Developer Edition org that we recommend.
+
+Also note that your developer org has a custom permission set that doesn't have access to Data Cloud Setup. It’s intended to be used
+only for specified Trailhead challenges.
+
+Great, you’re now ready to get started on Becca’s plan to unlock the power of data and AI combined. Click Verify step to earn 100 points
+in the Challenge section to go to the next step in the project.
+
