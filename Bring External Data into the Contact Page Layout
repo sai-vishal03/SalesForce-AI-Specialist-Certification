@@ -1,0 +1,198 @@
+Bring External Data into the Contact Page Layout
+Make Salesforce an All-Inclusive Resort, for Data
+Becca is excited to get working on her first Data Cloud plus AI combo project. But before starting, she knows 
+it’s important to take stock of the current systems and processes. Streamlining check-ins involves Coral Cloud’s
+current reservation system, a slightly antiquated solution called Reserv-o-matic. This external system allows 
+guests to place many reservations under a single profile.
+
+Each guest has several fields to hold information like their name, email addresses, and phone number. One such
+guest, Sofia Rodriguez, has created a few reservations, each with check-in and check-out dates, along with room
+type and reservation status.
+
+At present, all of that information is completely separate from Coral Cloud’s Salesforce org. In that org is a
+Contact record for Sofia, with tons of existing related data. Data Cloud will make the connection between the
+Sofia in Salesforce with the Sofia in Reserv-o-matic. And once that relationship is established, Becca can do
+all sorts of interesting things with it. For example, she can start by putting a reservation related list right
+into the Contact page layout.
+
+Contact record that shows a list of reservations.
+
+To accomplish this, Becca has to complete three steps.
+
+Make Data Cloud aware of Reserv-o-matic data.
+Find matches between external guests and internal contacts.
+Update the Contact page to display external reservations.
+With the plan in place, it’s almost time to begin setting things up. But a quick note first, intrepid Trailblazer.
+As you may have guessed, Reserv-o-matic doesn’t actually exist. So that means there’s no external data source for 
+you to use in this project. For that reason, Team Trailhead has put the “external” guest and “external” reservation
+data into custom objects that reside in your special org. So throughout this project we’re going to pretend the data
+exists outside of your org, and you get to play along. Make sense? OK, back to our regularly scheduled programming.
+
+Enable Data Streams for Existing Coral Cloud Data
+At this point in our story, Team Trailhead has saved a little time for you by already creating a connection between 
+Data Cloud and Reserv-o-matic. However, Data Cloud is not yet aware of what data exists in the external system, let 
+alone how it relates to internal objects. So the first step Becca must take is to identify the data that should be 
+brought into Data Cloud. That means creating a data stream, a fundamental part of Data Cloud administration.
+
+Data streams describe where to find data from within a given connection. Each data stream creates a related Data Lake
+Object (DLO), which is a storage container for the data coming from the data stream source. But how does that new DLO 
+relate to all the other data that already exists in Data Cloud? The answer comes in the form of Data Model Objects (DMOs), 
+which describe how data is structured, sort of like metadata. For example, the DMO named Contact Point Email has details 
+about how to properly store an email address, regardless of where it comes from. So Becca can map the email column from the 
+external guest data to the email address field in the DMO.
+
+Diagram of mapping fields between a Data Lake Object and a Data Model Object.
+
+That mapping makes it possible for Data Cloud to use data in clever ways. In this project, Data Cloud uses the email address
+to know that Sofia from Reserv-o-matic is the same Sofia in Salesforce.
+
+Creating data streams and mapping them is a whole topic on its own, which you can learn more about in the Create a Data Stream 
+in Data Cloud project. In this project, we’ve simplified things by packaging all of the Coral Cloud data streams and mappings 
+into a data kit, which has already been loaded into your special org. All you have to do is enable the data streams. You start 
+by launching your Data Cloud and Einstein-enabled playground.
+
+Enable Data Streams
+If you haven’t already, launch your Data Cloud and Einstein 1 playground.
+Org selection and Launch button in the Challenge section of this page.
+
+Click the App Launcher App Launcher icon, type data, then click the Data Cloud app.
+Click the Data Streams tab.
+Click New.
+This is the point where you have to play pretend, and choose an internal source of data instead of an external one.
+Click Salesforce CRM.
+New Data Stream dialog window, with Salesforce CRM selected.
+
+Click Next.
+Click the AIPlusData Custom Data Bundle.
+New Data Stream dialog window with custom data bundle highlighted.
+
+Click Next.
+Notice that the default Data Space is pre-selected and all the fields included in the bundle are listed. Leave the 
+selections as is, and click Next.
+Click Deploy.
+Well done, you’ve identified important sources of data by enabling data streams. Over the next few minutes the data
+is ingested into the Data Lake Objects. And since the Data Model Objects and mappings already exist, you can soon make use of the data.
+
+Set Up Identity Resolution
+Becca knows that many of the guests from Reserv-o-matic are the same people that have Contact records in Salesforce.
+Since both guest and contact are mapped to common Data Model Objects, she can use a powerful feature of Data Cloud
+to match the Sofia that’s in Salesforce with the Sofia from Reserv-o-matic for one unified Sofia. It’s called identity
+resolution, and it’s key to bridging the gap between Salesforce Contacts and the external reservation data. You start
+by navigating to the Identity Resolutions tab to create an Identity Resolution ruleset.
+
+Click the Identity Resolutions tab.
+Click New.
+Click Create New Ruleset, then click Next.
+Leave default selected in the Select Data Space menu.
+For Primary DMO, choose Individual.
+Type ccid for Ruleset ID.
+This stands for Coral Cloud Identification.
+Click Next.
+Type Guest Name and Email for Ruleset Name.
+In the Description field, type Reconcile Reserve-o-matic contact data with Salesforce contact data.
+Disable Run jobs automatically.
+Run jobs automatically toggle.
+
+You will manually start a job later.
+
+Click Save.
+The framework of the ruleset is saved, now it’s time to set up how matching is done.
+Click Configure.
+Match Rules section of Identity Resolution page.
+
+Click Next.
+Click Configure.
+Choose Fuzzy Name and Normalized Email.
+This determines the primary pieces of data that are used for matching.
+Click Next.
+There are quite a few sophisticated ways to fine-tune how matches are made, but for now you’ll just use the defaults.
+Click Next.
+Click Save.
+Excellent, now Data Cloud knows how to detect when two individuals are actually the same person, using a ruleset. Your org has 
+a few dozen guests and contacts that will match when using this ruleset. To learn more about identity resolution rulesets, check
+out the Quick Start: Create an Identity Resolution Ruleset project.
+
+Verify Data Is Ingested, and Run an Identity Resolution Ruleset
+Rulesets are all about matching data, but you need that data to be present in your Data Lake Objects before any matching can be 
+done. Let’s verify that the data streams have finished ingesting all the sample records before running the ruleset.
+
+Click the Data Streams tab.
+Refresh the page in your browser.
+All streams need to state Success for Last Run Status. If they don’t, wait a minute or two and refresh again.
+Data Streams page with all streams stating Success.
+
+Note
+The data streams usually ingest the sample records quickly, so you shouldn’t have to wait long. However, occasionally it may take up 
+to 15 minutes for the Last Run Status to show “Success.”
+
+Click the Identity Resolutions tab.
+Click Guest Name and Email.
+Click Run Ruleset in the upper right corner.
+Sometimes it takes a little while for a ruleset to run. It should be pretty quick for you because the org only has a few dozen records, 
+but even so you can do other things while it processes. Like creating a Data Cloud Related List! Let’s do that next.
+
+Connect Data Cloud and CRM with Enrichment
+One awesome benefit of having all of your data accessible in one place is that you can create experiences that seamlessly blend data from 
+all sources. In the case of Coral Cloud, Becca wants to present external reservation data in the same place that hotel staff finds other 
+relevant information about their guests: the Contacts page.
+
+Contact page with a related list of reservations.
+
+Without knowing better, it would be easy to think this screenshot shows a normal related list–it fits right in! But it’s actually a 
+special kind of related list called a Data Cloud Related List. Creating one is done under Setup. (A lot of popup windows appear as 
+you complete the remaining steps. Feel free to dismiss them.)
+
+Click the Setup icon Setup icon , then click Setup.
+Click Object Manager.
+Click Contact, (not Contract).
+Click Data Cloud Related List.
+Click New.
+New button
+
+For Data Cloud Object, choose ExternalReservation.
+Click Next.
+Check Enable Controlled by Parent Permissions.
+Click Next.
+Update Child Relationship Name to Reservations.
+Click Next.
+Update Related list label to Reservations.
+Click Next.
+OK, the Data Cloud Related List exists, but it’s not yet on any page layouts. So Becca updates the Lightning record page for Contact, and configures how it appears.
+
+In the left menu, click Lightning Record Pages.
+Click Contact Record Page.
+Click Edit.
+Drag a Dynamic Related List - Single into the Related tab above Opportunities.
+Contact record page layout, with a Dynamic Related List positioned between existing elements.
+
+In the right menu, under Related List, choose Reservations.
+Element pane with Relate List selection and Add Field button highlighted.
+
+Under Related List Fields, click Add Field.
+Find and select Check-in Date.
+Click Done.
+Repeat steps 6-8 for Check-out Date, Room Type, and Reservation Status.
+Delete the Record ID field at the top of the list by clicking the X.
+Under Related List filters, click Add Filter.
+For Field, choose Check-in Date.
+For Operator, choose not equal to.
+In other words, if the check-in date isn’t empty, show the reservation. If a filter isn’t added, only the past 7 days of data appear. In your org the data is probably older than that.
+Filter section with field and operator selected.
+
+Click Done.
+Click Save.
+Close the Lightning App Builder tab to return to the Data Cloud app.
+Excellent, the Data Cloud Related List is ready to go! Let’s check out Sofia’s Contact record to verify that her reservations are listed.
+
+Click the Identity Resolutions tab, then click the Guest Name and Email ruleset. Refresh your browser and verify that the Last Job Status field states Succeeded. If not, wait a minute and refresh again.
+Identity Resolution record header.
+
+Click the App Launcher, type sales, then click the Sales app.
+Click the Contacts tab.
+Click List View (on the far right), then select All Contacts.
+In the Search this list… box, type Sofia Rodriguez and click enter.
+Click Sofia Rodriguez.
+Sofia should have three reservations, now appearing right inside of the contact page layout.
+
+There’s nothing quite like a plan coming together. Data Streams created, identities resolved, page layouts enhanced: 
+It’s a great start. Next, Becca uses reservation data to teach Einstein Copilot a brand-new skill.
