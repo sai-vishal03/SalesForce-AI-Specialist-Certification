@@ -1,0 +1,251 @@
+Enhance Copilot to Act on Data with Conversational Language
+Give the Warmest of Welcomes
+Every day at Coral Cloud Resorts, guests arrive having traveled from around the globe, and they’re usually 
+ready to start relaxing. But before they can, they have to check in with the front desk. So Becca is going
+to make that last little hurdle as effortless as possible for her staff so that guests can begin vacationing ASAP.
+
+Whenever a check-in occurs, Coral Cloud staff logs the event by creating a record on a custom object named
+Guest Event. They use it to track a lot of things, like when guests request housekeeping or when guests 
+attend a social activity. Right now staff must manually create the check-in record, but Becca sees two 
+ways to level up the process. First, she uses a flow to create a Guest Event record based on the latest 
+reservation data in Data Cloud. Second, she teaches Einstein Copilot how to launch the flow through conversational
+language. So when Sofia Rodriguez arrives to begin her stay, whoever is at the front desk can simply ask Einstein
+to “check in Sofia Rodriguez” and Einstein does the rest!
+
+Einstein conversation pane with a request and response.
+
+Finish a Flow to Log Guest Events
+Thanks to Data Cloud, Becca has all the information required to make a flow that starts with a contact, like 
+Sofia Rodriguez, and creates a record based on reservation data. However, the path between the two is a little
+twisty. As you learned in the previous step, identity resolution automatically creates bridging objects that 
+connect related Data Model Objects. In order to make the check-in flow, Becca has to cross one of those bridges, twice.
+
+The bridge in question is named Unified Link Individual ccid, which connects the Sofia in Salesforce to the 
+Sofia in Reserv-o-matic. Here’s a simplified version of the data in that bridge.
+
+Full Name
+
+Data Source
+
+Source ID
+
+Unified ID
+
+Sofia Rodriguez
+
+Salesforce
+
+003bn000002FILwAAO [1]
+
+ca6369777b7dbca79215f46016e74dd6
+
+Sofi Rodriguez
+
+Reserv-o-matic
+
+10008155 [2]
+
+ca6369777b7dbca79215f46016e74dd6
+
+Notice that the Unified ID is the same for both Sofias. So if you know Sofia’s Salesforce ID [1], you can 
+find her Reserv-o-matic ID [2] by way of the Unified ID. That’s important because reservations are only 
+tied to guests by the Reserv-o-matic ID. Here’s a simplified version of that.
+
+Contact ID
+
+Check-in Date
+
+Check-out Date
+
+Room Type
+
+Reservation Status
+
+10008155 [2]
+
+5/31/2021
+
+6/1/2021
+
+Suite
+
+Completed
+
+10008155 [2]
+
+10/19/2023
+
+10/21/2023
+
+Suite
+
+Completed
+
+10008155 [2]
+
+4/27/2024
+
+5/7/2024
+
+Suite
+
+Completed
+
+With all of that in mind, let’s break down what the flow does.
+
+Knowing the Source ID from Salesforce [1], query the bridge to find the Unified ID.
+Knowing the Unified ID, query the bridge again to find the Reserv-o-matic ID [2].
+Knowing the Reserv-o-matic ID [2], query the reservation data to find the latest reservation details.
+Knowing the latest reservation details, update a flow variable with the details.
+Create a Guest Event record for check-in using the variable.
+It sounds like a lot, but we have good news for you: Team Trailhead has already created most of the flow. 
+The remaining parts involve objects that only exist now that you’ve created data streams and set up identity
+resolution. So let’s finish that flow!
+
+Note
+Note that the steps below contain a lot of detail, but don’t discuss every field because there are so many. 
+When a field is not mentioned in a set of steps, leave it as is.
+
+Click the Setup icon, then click Setup.
+Type flows in the search, then click Flows (under Process Automation).
+Click Create Check-in Guest Event.
+Click the Unified Link 1 element, then click Edit Element.
+For Data Source, choose Data Cloud Object.
+For Data Space, choose default.
+For Object, choose Unified Link Individual ccid.
+Be sure to choose the right object, there are a few that have similar names.
+Object selection list.
+
+In the Filter Records section, for Field, choose SourceRecordId__c.
+This is the actual name of the Source ID column in the first table.
+For Value, choose the variable ContactRecordId.
+ContactRecordId is a variable Team Trailhead created in advance. It just represents the Salesforce ID of the contact record.
+Value selection list.
+
+Click Save.
+OK, the flow has pinpointed the first record in the Unified Link table. Time to use the Unified ID from that record to find the Reserv-o-matic ID.
+
+Click the Unified Link 2 element, then click Edit Element.
+For Data Source, choose Data Cloud Object.
+For Data Space, choose default.
+For Object, choose Unified Link Individual ccid.
+This is in fact the same object from the first element.
+In the Filter Records section, for Field, choose UnifiedRecordId__c.
+This is the actual name of the Unified ID column from the first table.
+For Value, copy and paste {!Unified_Link_1.UnifiedRecordId__c}.
+This is a pointer to the Unified ID from the first query. When you click away from the Value, the text is replaced with a placeholder.
+Filter section of the Get Record Flow element.
+
+Click Add Condition.
+For Field, choose ssot__DataSourceObjectId__c.
+For Operator, choose Starts With.
+For Value, type External.
+Condition section of the Get Record Flow element.
+
+The Data Lake Object is really called ExternalReservation, not Reserv-o-matic like in the simplified table. 
+By adding this extra condition the flow will ignore Sofia’s Salesforce ID and find 10008155 from the first table.
+
+Click Save.
+Now that you know Sofia’s Reserv-o-matic ID, you can find her most recent reservation.
+
+Click the Reservation 1 element, then click Edit Element.
+For Data Source, choose Data Cloud Object.
+For Data Space, choose default.
+For Object, choose ExternalReservation.
+In the Filter Records section, for Field choose Contact_ID_c__c.
+For Value, copy and paste {!Unified_Link_2.SourceRecordId__c}.
+This is a pointer to the previous query.
+For Sort Order, choose Descending.
+For Sort By, choose Check_in_Date_c__c.
+Click Save.
+Sorting in this way puts the most recent reservation at the top of the results, so it’s used for the 
+rest of the flow. The final piece of the puzzle is to use the reservation details to set the value of 
+a variable (EventSummary), which is ultimately placed into a new Guest Event record.
+
+Click the Event Summary element, then click Edit Element.
+For Value, copy and paste the following:
+Check-in date of {!Reservation_1.Check_in_Date_c__c}, check-out date of {!Reservation_1.Check_out_Date_c__c},
+for room type {!Reservation_1.Room_type_c__c}.
+Click outside the Value box so the Save button becomes available, then click Save.
+Click Activate.
+Close the Flow tab to return to the Setup tab.
+Great job shaping up the flow. It was a bit of work, but it’ll pay off almost immediately once Einstein Copilot knows how to use it.
+
+Create a Check-in Copilot Action
+There’s more good news for you: setting up Einstein Copilot to use a flow is super easy.
+
+Click the Setup icon Setup icon , then click Setup.
+In the Quick Find box, type Einstein Setup, then click Einstein Setup.
+Toggle the Turn on Einstein switch to On.
+Enable Einstein toggle.
+
+In the Quick Find box, type Einstein Sales, then click Einstein for Sales.
+Sales Emails may already be enabled in your org, but if not, toggle the Turn on Sales Emails switch to Enabled. 
+It may take some time to set things up, but you can continue on in the meantime. After a few minutes, you may 
+need to refresh your browser to clear the setup alert.
+Enable Sales Emails toggle.
+
+In the Quick Find box, type agent, then click Agents.
+Toggle the Einstein Copilot for Salesforce switch to On.
+Enable Einstein Copilot for Salesforce toggle.
+
+Refresh the browser.
+In the Quick Find box, type agent, then click Agent Actions.
+Click + New Agent Action.
+For Reference Action Type, choose Flow.
+For Reference Action, choose Create Check-in Guest Event.
+Click Next.
+Let’s take a moment to look at what Copilot brings in from the flow. Most importantly, the flow has a well-defined
+description, which is placed into the Copilot Action Instructions. The variables have good descriptions too, placed 
+into the input and output instructions. These are critical for Einstein to understand the purpose of the flow, and 
+how it should be used. Kudos to Becca for following best practices and documenting her work well!
+Einstein Copilot Action setup dialog.
+
+Under Input, check Require input.
+Under Output, check Show in conversation.
+Click Finish.
+Your new action is finished, but we need to add it to Copilot.
+With agent still in the Quick Find box, click Agents.
+Click Einstein Copilot.
+Einstein Copilots list.
+
+Click Open in Builder.
+Ensure your copilot isn’t active, it should show an Activate button. If it shows a Deactivate button, click Deactivate.
+From Topics, click MigrationDefaultTopic.
+Topics section of Agent Builder with an arrow pointing to MigrationDefaultTopic.
+
+Click This Topic’s Actions.
+Topic Details with an arrow pointing to This Topic’s Actions.
+
+Click the + icon.
+Copilot Builder with actions tab displayed.
+
+Check the Create Check-in Guest Event box and click Finish.
+Click Activate.
+Close the Agent Builder tab to return to the Sales app.
+That’s it, Copilot is ready to help check in guests. The only thing left is to try it out. You may already have 
+the Sofia Rodriguez contact open, so navigate to the Home tab as though you’re starting from the beginning of check-in.
+
+Click the Home tab.
+Refresh the browser window.
+Click the Einstein icon to open the Einstein panel.
+Einstein icon
+
+In the Einstein panel, type Tell me about the Sofia Rodriguez contact, then press enter.
+This step isn’t strictly necessary, but it illustrates Einstein’s ability to find and summarize a record.
+Click the link for Sofia Rodriguez.
+This brings you to Sofia’s contact record. If Einstein didn’t reply with a link to the record (which sometimes
+happens in our training environment), just navigate to her contact record.
+In the Einstein panel, type Check in Sofia Rodriguez, then press enter.
+After a few moments, Einstein should respond that check-in is complete, along with some details of the check-in. 
+The Guest Event record was created too.
+Scroll down to find the Guest Events related list, then click the new GE record.
+Guest Event related list.
+
+Great, the check-in event is captured just as expected.
+
+Close the Einstein panel.
+Phase 2 of Becca’s plan is a success. The resort staff loves how easy it is to check-in guests, and the social coordinator
+is already asking Becca to teach Copilot how to create Guest Events for his activities.
+
+The final phase is to use Prompt Builder to craft personalized welcome emails with only a couple of clicks.
