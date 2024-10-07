@@ -1,0 +1,74 @@
+Add Data to a Prompt Template to Quickly Draft Emails
+Create and Use a Sales Email Prompt Template
+Coral Cloud goes to great lengths to give its guests a fantastic vacationing experience that feels perfectly 
+tailored to their interests. That level of personalization takes a lot of effort. One example is the welcome 
+email that every guest receives upon check-in.
+It includes more than just the WiFi password. Staff at the front desk often add small details from the 
+conversations they have during check-in. This time-consuming task is about to get a lot easier thanks to Prompt Builder.
+
+As you learn in the Prompt Builder Basics badge, the key to scalable generative AI is to use prompt templates to
+tell a large language model (LLM) how it should generate content. Prompt templates merge specific data, such as 
+reservation details, with general instructions to make a unique prompt each time the template is called. There’s
+an art to creating prompt templates, which you can learn about in the Prompt Fundamentals badge. And if you want 
+to know more about LLMs in general, check out the Large Language Models badge.
+
+Becca wants to create a prompt template for drafting welcome emails. She wants to include details about the most
+recent reservation and allow front desk staff to quickly add personal touches to the generated messages. She 
+starts by navigating to Prompt Builder in Setup.
+
+Click the Setup iconSetup icon , then click Setup.
+Type prompt in search, then click Prompt Builder.
+Click New Prompt Template.
+For Prompt Template Type, choose Sales Email.
+For Prompt Template Name, enter Check-in Welcome.
+For Description, type Check-in welcome email.
+For Related Object, choose Guest Event.
+Prompt template creation dialog with all fields complete.
+
+Click Next.
+For the sake of time, instead of writing a prompt from scratch, let’s just use the one Becca has been working on.
+Paste the following into the Prompt Template Workspace.
+You’re a receptionist for the Coral Clouds Resort hotel.
+Your name is {!$Input:Sender.Name}, with phone {!$Input:Sender.Phone} and email {!$Input:Sender.Email}.
+A guest has just checked-in, and you want to send them a welcome email.
+Instructions:
+'''
+Use clear, concise, and straightforward language using the active voice and strictly avoiding the use of filler words and phrases and redundant language.
+Generate a subject line that can increase open rate using words and content that is related to the email body content.
+Generate the body of the email, which will have the next format:
+- First add a title that includes the name of the guest and welcomes them: {!$Input:Recipient.Name}.
+- Add a paragraph explaining the characteristics of the reservation described in {!$Input:Guest_Event__c.Details__c}, including its check in date, check out date, and room type.
+- Explain breakfast is available from 6 to 10 AM. Find in the reservation if it's included and add this information to the email, mentioning it can be included any time.
+- Add the wifi network network: Coral_Cloud_Guests. Mention for password, guests will be prompted for their surname and room number.
+- End the email by encouraging the guest to contact you if they have any inquiries.
+'''
+Now generate the welcome email to your guest.
+Click Save.
+Click Activate.
+Notice that Becca’s prompt includes multiple merge fields, which are colored blue. One field, Guest_Event__c.Details__c,
+contains data that originated from Reserv-o-matic. Nice for it to make an appearance!
+
+Test Your Work
+The final step for any good admin is to test their work, and that’s exactly what Becca does next.
+
+Close the Setup tab to return to the Sales app.
+Click the Contacts tab.
+Click Sofia Rodriguez.
+Click the Email icon.
+Activities panel with email icon highlighted.
+
+Click Draft with Einstein Draft with Einstein button..
+Click Use pre-made instructions, then choose Check-in Welcome.
+Mail panel with pre-made instructions menu open.
+
+For Guest Event, choose the GE record created in the previous section.
+Click Continue.
+At this point Einstein is writing the welcome email based on the new prompt template, and in a moment the draft will appear. 
+Front desk staff can review the results, and add in any personal touches they’d like.
+Click Done.
+Click Send.
+And there you have it. In just a few clicks, a personalized and informative welcome email is on its way to another happy guest. 
+Becca is quite satisfied with the way her project combined Data Cloud, Einstein Copilot, and Prompt Builder to improve the 
+experience of guests and staff alike. And after a short moment of reflecting on the success of the project, Becca sets out to 
+find the social coordinator to begin their next AI + Data adventure.
+
